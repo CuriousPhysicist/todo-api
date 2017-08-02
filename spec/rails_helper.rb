@@ -18,13 +18,6 @@ require 'database_cleaner'
 # end with _spec.rb. You can configure this pattern with the --pattern
 # option on the command line or in ~/.rspec, .rspec or `.rspec-local`.
 
-# configure Shoulda matchers to use rspec as the test framework and full matcher libraries for rails
-Shoulda::Matchers.configure do |config|
-  config.integrate do |with|
-    with.test_framework :rspec
-    with.library :rails
-end
-
 # The following line is provided for convenience purposes. It has the downside
 # of increasing the boot-up time by auto-requiring all files in the support
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
@@ -36,6 +29,13 @@ end
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
+# configure Shoulda matchers to use rspec as the test framework and full matcher libraries for rails
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
@@ -52,11 +52,11 @@ RSpec.configure do |config|
   # start by truncating all the tables but then use the faster transaction strategy the rest of the time
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
-    DatabaseCleaner.strategy :transaction
+    DatabaseCleaner.strategy = :transaction
   end
 
   # start the transaction strategy as examples are run
-  config.around(:each) do
+  config.around(:each) do |example|
     DatabaseCleaner.cleaning do
       example.run
     end
