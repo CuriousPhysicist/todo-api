@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :item do
-    name "MyString"
+    name { Faker::Starwars.character }
     done false
-    todo nil
+    todo_id nil
   end
 end
