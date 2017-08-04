@@ -10,4 +10,15 @@ class TodosController < ApplicationController
 		json_response(@todo)
 	end
 
+	def create
+		@todo = Todo.create!(todo_params)
+		json_response(@todo)
+	end
+
+	private
+
+	def todo_params
+		params.permit(:title, :created_by)
+	end
+
 end
