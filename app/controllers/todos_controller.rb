@@ -15,6 +15,9 @@ class TodosController < ApplicationController
 		json_response(@todo, :created)
 	end
 
+	def update
+	end
+
 	private
 
 	def todo_params
