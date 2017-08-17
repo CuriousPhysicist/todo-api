@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+
 RSpec.describe 'Items API', type: :request do
 
 	# Initialize the test data
@@ -37,7 +38,7 @@ RSpec.describe 'Items API', type: :request do
 
 	# Test suite for GET /todos/:todo_id/items/:item_id
 	describe 'GET /todos/:todo_id/items/:item_id' do
-		before { get "GET /todos/#{todo_id}/items/#{id}" }
+		before { get "/todos/#{todo_id}/items/#{id}" }
 
 		context 'when todo item exists' do
 			it 'returns status code 200' do
@@ -88,7 +89,7 @@ RSpec.describe 'Items API', type: :request do
 	end
 
 	# Test suite for PUT /todos/:todo_id/items/:id
-	descriobe 'PUT /todos/:todo_id/items/:id' do
+	describe 'PUT /todos/:todo_id/items/:id' do
 		let(:valid_attributes) { { name: 'Mozart' } }
 
 		before { put "/todos/#{todo_id}/items/#{id}", params: valid_attributes}
@@ -99,7 +100,7 @@ RSpec.describe 'Items API', type: :request do
 			end
 
 			it 'updates the item' do
-				updated_item = Item.find[id]
+				updated_item = Item.find(id)
 				expect(updated_item.name).to match(/Mozart/)
 			end
 		end
